@@ -2,12 +2,13 @@ package org.example.project.presentation.add_edit_note
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -21,8 +22,8 @@ class AddEditNoteViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _noteState = mutableStateOf(NoteState("", ""))
-    val noteState: State<NoteState> = _noteState
+    private val _noteState = MutableStateFlow(NoteState("", ""))
+    val noteState: StateFlow<NoteState> = _noteState
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -76,7 +77,7 @@ class AddEditNoteViewModel(
                             Note(
                                 title = noteState.value.titleText,
                                 content = noteState.value.contentText,
-                                timestamp = Clock.System.now().toEpochMilliseconds(),
+                                timestamp = Clock.System.now().epochSeconds,
                                 color = noteState.value.color,
                                 textColor = noteState.value.textColor,
                                 desColor = noteState.value.desColor,

@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.example.project.black
 import org.example.project.red
 import org.example.project.white
 
@@ -22,7 +23,7 @@ fun DefaultRadioButton(
     ) {
         RadioButton(
             selected = selected, onClick = onSelect, colors = RadioButtonDefaults.colors(
-                selectedColor = white,
+                selectedColor = black,
                 unselectedColor = red
             )
         )

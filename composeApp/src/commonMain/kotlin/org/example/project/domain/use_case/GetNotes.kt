@@ -1,8 +1,9 @@
-package org.example.project.domain
+package org.example.project.domain.use_case
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.example.project.data.Note
+import org.example.project.domain.NoteRepository
 import org.example.project.domain.util.NoteOrder
 import org.example.project.domain.util.OrderType
 

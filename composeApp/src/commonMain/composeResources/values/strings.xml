@@ -1,0 +1,9 @@
+<resources>
+    <string name="save_note">Safe Note</string>
+    <string name="enter_note">Enter Note</string>
+    <string name="add_note">Add Note</string>
+    <string name="sort">Sort</string>
+    <string name="search_here">Search Here</string>
+    <string name="note_delete">Note Deleted</string>
+    <string name="enter_des">Enter Description</string>
+</resources>

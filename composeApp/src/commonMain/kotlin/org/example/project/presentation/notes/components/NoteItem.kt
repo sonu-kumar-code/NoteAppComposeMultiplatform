@@ -29,7 +29,10 @@ import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import noteappcomposemultiplatform.composeapp.generated.resources.Res
+import noteappcomposemultiplatform.composeapp.generated.resources.note_delete
 import org.example.project.data.Note
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -97,7 +100,7 @@ fun NoteItem(
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Delete note",
+                contentDescription = stringResource(Res.string.note_delete),
                 tint = note.deleteColor
             )
         }

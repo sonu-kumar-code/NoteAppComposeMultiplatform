@@ -1,5 +1,6 @@
 package org.example.project.data
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -60,6 +61,7 @@ data class Note(
         )
     }
 
+    @Immutable
     data class ColorModel(
         val titleColor: Color,
         val contentColor: Color,

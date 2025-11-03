@@ -1,10 +1,10 @@
 package org.example.project.presentation.notes
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -17,8 +17,8 @@ class NotesViewModel(
     private val noteUseCases: NoteUseCases
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(NotesState())
-    val state: State<NotesState> = _state
+    private val _state = MutableStateFlow(NotesState())
+    val state: StateFlow<NotesState> = _state
 
     private var recentlyDeletedNote: Note? = null
 

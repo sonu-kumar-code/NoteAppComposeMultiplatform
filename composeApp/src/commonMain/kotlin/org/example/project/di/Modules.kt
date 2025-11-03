@@ -7,7 +7,7 @@ import org.example.project.data.NoteRepositoryImpl
 import org.example.project.domain.AddNote
 import org.example.project.domain.DeleteNote
 import org.example.project.domain.GetNote
-import org.example.project.domain.GetNotes
+import org.example.project.domain.use_case.GetNotes
 import org.example.project.domain.NoteRepository
 import org.example.project.domain.NoteUseCases
 import org.example.project.presentation.add_edit_note.AddEditNoteViewModel

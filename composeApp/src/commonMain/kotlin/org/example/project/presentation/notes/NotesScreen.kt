@@ -25,17 +25,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
+import noteappcomposemultiplatform.composeapp.generated.resources.Res
+import noteappcomposemultiplatform.composeapp.generated.resources.add_note
+import noteappcomposemultiplatform.composeapp.generated.resources.search_here
+import noteappcomposemultiplatform.composeapp.generated.resources.sort
 import org.example.project.Route
 import org.example.project.presentation.add_edit_note.components.TransparentHintTextField
 import org.example.project.presentation.notes.components.NoteItem
 import org.example.project.presentation.notes.components.OrderSection
 import org.example.project.red
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @ExperimentalAnimationApi
@@ -44,7 +50,7 @@ fun NotesScreen(
     navController: NavController,
     viewModel: NotesViewModel = koinViewModel()
 ) {
-    val state = viewModel.state.value
+    val state = viewModel.state.collectAsState()
     val scaffoldState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -55,7 +61,10 @@ fun NotesScreen(
             },
             contentColor = red
         ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = stringResource(Res.string.add_note)
+            )
         }
     }, snackbarHost = { SnackbarHostState() }) {
         Column(
@@ -63,8 +72,8 @@ fun NotesScreen(
                 .fillMaxSize()
                 .padding(start = 16.dp, end = 16.dp, top = 50.dp, bottom = 16.dp)
         ) {
-            TransparentHintTextField(text = state.searchText,
-                hint = "SEARCH_HERE",
+            TransparentHintTextField(text = state.value.searchText,
+                hint = stringResource(Res.string.search_here),
                 onValueChange = { viewModel.onEvent(NotesEvent.SearchItem(it)) },
                 trailing = {
                     IconButton(
@@ -73,26 +82,27 @@ fun NotesScreen(
                         },
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.Menu, contentDescription = "Sort"
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = stringResource(Res.string.sort)
                         )
                     }
                 })
             AnimatedVisibility(
-                visible = state.isOrderSectionVisible,
+                visible = state.value.isOrderSectionVisible,
                 enter = fadeIn() + slideInVertically(),
                 exit = fadeOut() + slideOutVertically()
             ) {
                 OrderSection(modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 16.dp),
-                    noteOrder = state.noteOrder,
+                    noteOrder = state.value.noteOrder,
                     onOrderChange = {
                         viewModel.onEvent(NotesEvent.Order(it))
                     })
             }
             Spacer(modifier = Modifier.height(16.dp))
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(state.notes) { note ->
+                items(state.value.notes) { note ->
                     NoteItem(note = note, modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
