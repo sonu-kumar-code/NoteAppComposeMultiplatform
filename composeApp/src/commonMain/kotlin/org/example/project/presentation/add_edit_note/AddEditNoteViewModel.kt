@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import org.example.project.Route
 import org.example.project.data.InvalidNoteException
 import org.example.project.data.Note
 import org.example.project.domain.NoteUseCases
+import kotlin.time.ExperimentalTime
 
 class AddEditNoteViewModel(
     private val noteUseCases: NoteUseCases,
@@ -47,6 +47,7 @@ class AddEditNoteViewModel(
         }
     }
 
+    @OptIn(ExperimentalTime::class)
     fun onEvent(event: AddEditNoteEvent) {
         when (event) {
             is AddEditNoteEvent.EnteredTitle -> {
@@ -77,7 +78,7 @@ class AddEditNoteViewModel(
                             Note(
                                 title = noteState.value.titleText,
                                 content = noteState.value.contentText,
-                                timestamp = Clock.System.now().epochSeconds,
+                                timestamp = kotlin.time.Clock.System.now().epochSeconds,
                                 color = noteState.value.color,
                                 textColor = noteState.value.textColor,
                                 desColor = noteState.value.desColor,
